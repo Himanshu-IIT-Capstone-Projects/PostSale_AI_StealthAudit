@@ -218,3 +218,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ohters
+
+.vs
+.mp4
+.env
+.venv
+.venv/
