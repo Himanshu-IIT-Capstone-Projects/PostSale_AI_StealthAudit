@@ -30,24 +30,28 @@ async def root():
 @app.post("/uploadfile")
 async def evaluate_file(file: UploadFile = File(...)):
     print(f"\n Received file: {file.filename}")
-    # -----------------------------Test
+    # -----------------------------Test--------------------------
+    '''
     return FileResponse(
         path="./data/call_center_evaluations-1.xlsx",
         filename="output.xlsx",
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    )
+    )'''
 
     # -----------------------------
     # Process the uploaded file and get the output path
     # -----------------------------
     output_path = await process_main(file)
 
+    if not output_path:
+        raise HTTPException(status_code=400, detail="File processing has failed.")
+    
     # -----------------------------
     # Return output file
     # -----------------------------
     return FileResponse(
         path=output_path,
-        filename="qa_output.xlsx",
+        filename="output.xlsx",
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
 

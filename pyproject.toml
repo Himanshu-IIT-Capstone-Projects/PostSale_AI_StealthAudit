@@ -16,7 +16,8 @@ dependencies = [
     "pydantic",
     "fastapi",
     "uvicorn",
-    "python-multipart"
+    "python-multipart",
+    "tqdm"
     ]
 
 [project.scripts]
