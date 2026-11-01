@@ -24,3 +24,44 @@ By pulling transcripts and call logs directly from Excel, the system uses backgr
 • Behavioral & Tonal Alignment: Was the agent's language professional, calm, and reassuring, or did it shift into a defensive or dismissive tone?
 
 • Confidence Calibration: A percentage metric indicating the AI's certainty. Low confidence scores trigger an automatic flag for human QA supervisors to review manually.
+
+## Pre-Requisuite
+Execute in CMD terminal to get latest packages
+```
+> uv init (initialize folder, file strucutre for .toml file and package system)
+```
+
+# uv init generates the following layout:
+```
+my-project/
+├── .gitignore         # Configured to ignore virtual environments (.venv) and build artifacts
+├── .python-version    # Pins the specific Python version used by the project
+├── pyproject.toml     # The central configuration file for metadata and dependencies
+├── README.md          # Standard project documentation file
+└── src/               # Code directory (prevents accidental local imports during testing)
+    └── my_project/    # Your actual importable package (uses underscores instead of dashes)
+        └── __init__.py# Marks the directory as a Python package and includes a "Hello" entry point0
+```
+
+# Packages installation:
+```
+> uv sync (install all packages inside .toml file)
+```
+<div>
+    <img src="./images/output.gif.gif" style="width:80%;" />
+</div>
+
+# RUN Project
+```
+> uv run python -m uvicorn src.postsale_ai_stealthaudit.main:app --port 8921 --reload
+```
+
+# Screenshot:
+<div>
+    <img src="./images/uiScreenshot.png" style="width:80%;" />
+</div>
+
+# Running Video:
+<div>
+    <img src="./images/" style="width:80%;" />
+</div>

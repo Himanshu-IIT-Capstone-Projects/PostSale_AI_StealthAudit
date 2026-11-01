@@ -1,0 +1,40 @@
+{
+    "provider": "ollama",
+    "ollama": {
+        "model": "qwen2.5-coder:3b",
+        "temperature": 0.2,
+        "top_p": 0.9,
+        "num_predict": 200
+    },
+    "gemini": {
+        "model": "gemini-3.5-flash-lite",
+        "temperature": 0.2,
+        "top_p": 0.9,
+        "max_output_tokens": 800
+    },
+    "openai": {
+        "model": "gpt-6-astra",
+        "temperature": 0.4,
+        "top_p": 0.9,
+        "max_output_tokens": 512
+    },
+    "evaluation": {
+        "criteria": [
+            "tone_empathy",
+            "knowledge_accuracy",
+            "resolution_quality"
+        ],
+        "score_range": [
+            1,
+            5
+        ]
+    },
+    "classification": {
+        "labels": [
+            "billing",
+            "claims",
+            "complaint",
+            "general_query"
+        ]
+    }
+}

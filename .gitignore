@@ -226,3 +226,4 @@ __marimo__/
 .env
 .venv
 .venv/
+.vscode

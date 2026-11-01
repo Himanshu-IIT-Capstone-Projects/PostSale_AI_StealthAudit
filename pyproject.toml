@@ -1,0 +1,27 @@
+[project]
+name = "postsale-ai-stealthaudit"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "langchain",
+    "ollama",
+    "langchain-ollama",
+    "langchain-openai",
+    "langchain-google-genai",
+    "python-dotenv",
+    "pandas",
+    "openpyxl",
+    "pydantic",
+    "fastapi",
+    "uvicorn",
+    "python-multipart"
+    ]
+
+[project.scripts]
+postsale-ai-stealthaudit = "postsale_ai_stealthaudit:main"
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"
