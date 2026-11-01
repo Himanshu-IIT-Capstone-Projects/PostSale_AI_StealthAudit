@@ -232,6 +232,9 @@ Start the API and frontend from the repository root:
 
 ```powershell
 uv run uvicorn postsale_ai_stealthaudit.main:app --host 127.0.0.1 --port 8921 --reload
+
+uv run pythin -m uvicorn postsale_ai_stealthaudit.main:app --host 127.0.0.1 --port 8921 --reload
+
 ```
 
 Open [http://127.0.0.1:8921](http://127.0.0.1:8921) in a browser. The health endpoint is available at [http://127.0.0.1:8921/healthcheck](http://127.0.0.1:8921/healthcheck).
