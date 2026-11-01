@@ -1,5 +1,5 @@
 {
-    "provider": "ollama",
+    "provider": "gemini",
     "ollama": {
         "model": "qwen2.5-coder:3b",
         "temperature": 0.2,
@@ -10,7 +10,7 @@
         "model": "gemini-3.5-flash-lite",
         "temperature": 0.2,
         "top_p": 0.9,
-        "max_output_tokens": 800
+        "max_output_tokens": 900
     },
     "openai": {
         "model": "gpt-6-astra",

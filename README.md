@@ -2,16 +2,35 @@
 
 PostSale AI StealthAudit is a post-sale quality assurance application. It accepts customer conversation data in a CSV or Excel workbook, evaluates calls with a configured language model, and returns an enriched Excel workbook. Its browser dashboard lets a reviewer explore call classifications, evaluation scores, confidence, and transcripts.
 
-## Project screenshots
+## Project UI Screenshots:
 
 <div>
-  <img src="./images/uiScreenshot.png" alt="StealthAudit dashboard" style="width: 80%;" />
+  <img src="./images/uiScreenshot.png" alt="StealthAudit dashboard" style="width: 90%;" />
 </div>
 
-The animation below shows the dashboard experience:
+## Terminal Screenshots:
+<div style="display: flex; justify-content: space-evenly;">
+  <img src="./images/terminal-1.png" alt="Terminal-1" style="width: 30%;" />
 
+  <img src="./images/terminal-2.png" alt="Terminal-2" style="width: 30%;" />
+
+  <img src="./images/terminal-3.png" alt="Terminal-2" style="width: 30%;" />
+</div>
+
+## Project Video Animation:
+The animation below shows the dashboard experience:
 <div>
-  <img src="./images/output.gif" alt="StealthAudit dashboard demo" style="width: 80%;" />
+  <img src="./images/output.gif" alt="StealthAudit dashboard demo" style="width: 90%;" />
+  
+  1.
+  <img src="./images/c1.gif" alt="StealthAudit dashboard demo" style="width: 90%;" />
+
+  2.
+  <img src="./images/c2.gif" alt="StealthAudit dashboard demo" style="width: 90%;" />
+
+  3.
+  <img src="./images/c3.gif" alt="StealthAudit dashboard demo" style="width: 90%;" />
+
 </div>
 
 ## Core objectives
