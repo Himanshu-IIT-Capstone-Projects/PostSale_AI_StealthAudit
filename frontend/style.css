@@ -1242,6 +1242,21 @@ select:disabled {
   font-size: 10px;
 }
 
+.evaluation-chip--toneEmpathy {
+  border-color: #f0d7c7;
+  background-color: #fcf0e8;
+}
+
+.evaluation-chip--knowledgeAccuracy {
+  border-color: #dce8da;
+  background-color: #eef4ed;
+}
+
+.evaluation-chip--resolutionQuality {
+  border-color: #eadfc8;
+  background-color: #f9f2df;
+}
+
 .evaluation-chip strong {
   margin-left: 3px;
   color: #49624f;

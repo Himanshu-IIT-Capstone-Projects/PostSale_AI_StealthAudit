@@ -157,9 +157,21 @@ def apply_evaluations(df, tone_chain, knowledge_chain, resolution_chain):
                 resolution_chain=resolution_chain
             )
 
+            scores = {
+                "tone_empathy_score": output.get("tone", {}).get("score") or 0,
+                "knowledge_accuracy_score": output.get("knowledge", {}).get("score") or 0,
+                "resolution_quality_score": output.get("resolution", {}).get("score") or 0
+            }
+            available_scores = [score for score in scores.values() if score is not None]
+
             evaluation_outputs.append({
                 "call_id": row["call_id"],
-                "evaluation_output": output
+                "evaluation_output": output,
+                **scores,
+                "overall_score": (
+                    round(sum(available_scores) / len(available_scores), 2)
+                    if available_scores else None
+                )
             })
 
         eval_df = pd.DataFrame(evaluation_outputs)
@@ -244,6 +256,9 @@ def route_call(call_type: str):
     """
     print("\n [route_call()] started")
     try:
+        # hard coded all three evaluations for UI 
+        return ["knowledge_accuracy", "resolution_quality", "tone_empathy"]
+
         if call_type == "billing":
             return ["knowledge_accuracy", "resolution_quality"]
 

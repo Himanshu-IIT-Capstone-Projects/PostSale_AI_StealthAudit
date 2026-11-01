@@ -61,7 +61,7 @@ IMPORTANT:
 # =====================================================
 
 class ToneEvaluation(BaseModel):
-    score: int = Field(description="Score between 1 and 5")
+    score: int = Field(ge=1, le=5, description="Score between 1 and 5")
     reasoning: str = Field(description="Explanation of the score")
 
 
@@ -105,7 +105,7 @@ Transcript:
 # =====================================================
 
 class KnowledgeEvaluation(BaseModel):
-    score: int = Field(description="Score between 1 and 5")
+    score: int = Field(ge=1, le=5, description="Score between 1 and 5")
     reasoning: str = Field(description="Explanation of the score")
 
 
@@ -152,7 +152,7 @@ Transcript:
 # =====================================================
 
 class ResolutionEvaluation(BaseModel):
-    score: int = Field(description="Score between 1 and 5")
+    score: int = Field(ge=1, le=5, description="Score between 1 and 5")
     reasoning: str = Field(description="Explanation of the score")
 
 

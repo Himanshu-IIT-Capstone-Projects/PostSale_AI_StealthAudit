@@ -162,10 +162,11 @@ const API_BASE = "http://127.0.0.1:8921";
       resolutionQuality: parseNumber(get("resolutionQuality")),
       overall: parseNumber(get("overallScore")),
     };
-    for (const key of Object.keys(scores)) {
-      if (scores[key] !== null && (scores[key] < 0 || scores[key] > 5)) scores[key] = null;
-    }
 
+    const getScoreLabel = (field) => {
+      const label = String(get(field) || "").trim();
+      return parseNumber(label) === null ? label : "";
+    };
     const confidence = parseConfidence(get("confidence"));
     return {
       id,
@@ -174,10 +175,10 @@ const API_BASE = "http://127.0.0.1:8921";
       type: String(get("type") || "Uncategorized").trim() || "Uncategorized",
       scores,
       evaluationLabels: {
-        toneEmpathy: String(get("toneEmpathy") || "").trim(),
-        knowledgeAccuracy: String(get("knowledgeAccuracy") || "").trim(),
-        resolutionQuality: String(get("resolutionQuality") || "").trim(),
-        overall: String(get("overallScore") || "").trim(),
+        toneEmpathy: getScoreLabel("toneEmpathy"),
+        knowledgeAccuracy: getScoreLabel("knowledgeAccuracy"),
+        resolutionQuality: getScoreLabel("resolutionQuality"),
+        overall: getScoreLabel("overallScore"),
       },
       confidence: confidence !== null && confidence >= 0 && confidence <= 100 ? confidence : null,
       resolution: String(get("resolution") || "").trim(),
@@ -220,20 +221,19 @@ const API_BASE = "http://127.0.0.1:8921";
 
   function getAverage(records, key) {
     const scores = records
-      .map((record) => (key === "overall" ? getRecordAverage(record) : record.scores[key]))
-      .filter((score) => score !== null);
+      .map((record) => record.scores[key])
+      .filter((score) => Number.isFinite(score));
     return scores.length
       ? { value: scores.reduce((sum, score) => sum + score, 0) / scores.length, count: scores.length }
       : null;
   }
 
-  function getRecordAverage(record) {
-    if (record.scores.overall !== null) return record.scores.overall;
-    const pillarScores = [record.scores.toneEmpathy, record.scores.knowledgeAccuracy, record.scores.resolutionQuality]
-      .filter((score) => score !== null);
-    return pillarScores.length
-      ? pillarScores.reduce((sum, score) => sum + score, 0) / pillarScores.length
-      : null;
+  function formatScore(score) {
+    return score >= 1 && score <= 5 ? `${score.toFixed(1)} / 5` : score.toFixed(1);
+  }
+
+  function getProgressWidth(score) {
+    return `${Math.min(100, Math.max(0, (score / 5) * 100))}%`;
   }
 
   function getFilteredRecords() {
@@ -263,21 +263,21 @@ const API_BASE = "http://127.0.0.1:8921";
         : "No workbook loaded";
 
     elements.metricQuality.innerHTML = overall
-      ? `${overall.value.toFixed(1)}<small>/ 5</small>`
+      ? `${overall.value.toFixed(1)}${overall.value >= 1 && overall.value <= 5 ? "<small>/ 5</small>" : ""}`
       : `—<small>/ 5</small>`;
     elements.metricQualityNote.textContent = overall
       ? `From ${overall.count} scored conversation${overall.count === 1 ? "" : "s"}`
       : "Evaluation scores not found";
-    elements.qualityProgress.style.width = overall ? `${Math.max(0, (overall.value / 5) * 100)}%` : "0%";
+    elements.qualityProgress.style.width = overall ? getProgressWidth(overall.value) : "0%";
 
     elements.metricEmpathy.innerHTML = empathy
-      ? `${empathy.value.toFixed(1)}<small>/ 5</small>`
+      ? `${empathy.value.toFixed(1)}${empathy.value >= 1 && empathy.value <= 5 ? "<small>/ 5</small>" : ""}`
       : `—<small>/ 5</small>`;
     elements.metricEmpathyNote.textContent = empathy
       ? `Average from ${empathy.count} evaluation${empathy.count === 1 ? "" : "s"}`
       : "Not present in this workbook";
     elements.empathyProgress.style.width = empathy
-      ? `${Math.max(0, (empathy.value / 5) * 100)}%`
+      ? getProgressWidth(empathy.value)
       : "0%";
 
     elements.metricReview.textContent = confidences.length ? String(needsReview) : "—";
@@ -456,7 +456,7 @@ const API_BASE = "http://127.0.0.1:8921";
       const row = rows[index];
       row.querySelector(".pillar-label").textContent = pillar.label;
       row.querySelector(".pillar-track > span").style.width = average
-        ? `${Math.max(0, (average.value / 5) * 100)}%`
+        ? getProgressWidth(average.value)
         : "0%";
       row.querySelector(".pillar-value").textContent = average ? average.value.toFixed(1) : "—";
       availableCount += average ? 1 : 0;
@@ -510,10 +510,11 @@ const API_BASE = "http://127.0.0.1:8921";
     for (const pillar of PILLARS) {
       const chip = document.createElement("span");
       chip.className = "evaluation-chip";
+      chip.classList.add(`evaluation-chip--${pillar.key}`);
       chip.append(document.createTextNode(`${pillar.label} `));
       const value = document.createElement("strong");
       value.textContent = record.scores[pillar.key] !== null
-        ? `${record.scores[pillar.key].toFixed(1)} / 5`
+        ? formatScore(record.scores[pillar.key])
         : record.evaluationLabels[pillar.key] || "Not scored";
       chip.append(value);
       elements.evaluationDetail.append(chip);
@@ -524,7 +525,7 @@ const API_BASE = "http://127.0.0.1:8921";
       chip.append(document.createTextNode("Overall score "));
       const value = document.createElement("strong");
       value.textContent = record.scores.overall !== null
-        ? `${record.scores.overall.toFixed(1)} / 5`
+        ? formatScore(record.scores.overall)
         : record.evaluationLabels.overall;
       chip.append(value);
       elements.evaluationDetail.append(chip);

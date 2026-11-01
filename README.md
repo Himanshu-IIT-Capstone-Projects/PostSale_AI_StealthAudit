@@ -3,6 +3,19 @@ It's an automated quality assurance solution that acts as an undercover data aud
 By pulling transcripts and call logs directly from Excel, the system uses background AI to verify issue resolution and grade emotional intelligence without interrupting the support workflow.
 
 
+# Project Screenshot:
+<div>
+    <img src="./images/uiScreenshot.png" style="width:80%;" />
+</div>
+
+# Project Running Video:
+<div>
+    <img src="./images/" style="width:40%;" />
+</div>
+
+<div>
+    <img src="./images/" style="width:40%;" />
+</div>
 
 ## 🎯 Core Objectives
 
@@ -55,13 +68,3 @@ my-project/
 ```
 > uv run python -m uvicorn src.postsale_ai_stealthaudit.main:app --port 8921 --reload
 ```
-
-# Screenshot:
-<div>
-    <img src="./images/uiScreenshot.png" style="width:80%;" />
-</div>
-
-# Running Video:
-<div>
-    <img src="./images/" style="width:80%;" />
-</div>
